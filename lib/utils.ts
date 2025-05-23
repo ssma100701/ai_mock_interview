@@ -1,22 +1,21 @@
-import { interviewCovers, mappings } from "@/constants";
-import { clsx, type ClassValue } from "clsx";
-import { twMerge } from "tailwind-merge";
+import { interviewCovers, mappings } from '@/constants';
+import { clsx, type ClassValue } from 'clsx';
+import { twMerge } from 'tailwind-merge';
 
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
 }
 
-const techIconBaseURL = "https://cdn.jsdelivr.net/gh/devicons/devicon/icons";
+const techIconBaseURL = 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons';
 
 const normalizeTechName = (tech: string) => {
-  const key = tech.toLowerCase().replace(/\.js$/, "").replace(/\s+/g, "");
+  const key = tech.toLowerCase().replace(/\.js$/, '').replace(/\s+/g, '');
   return mappings[key as keyof typeof mappings];
 };
 
 const checkIconExists = async (url: string) => {
   try {
-    const response = await fetch(url, { method: "GET" });
-    console.log(response);
+    const response = await fetch(url, { method: 'GET' });
     return response.ok; // Returns true if the icon exists
   } catch (error) {
     console.log(error);
@@ -36,7 +35,7 @@ export const getTechLogos = async (techArray: string[]) => {
   const results = await Promise.all(
     logoURLs.map(async ({ tech, url }) => ({
       tech,
-      url: (await checkIconExists(url)) ? url : "/tech.svg",
+      url: (await checkIconExists(url)) ? url : '/tech.svg',
     }))
   );
 
